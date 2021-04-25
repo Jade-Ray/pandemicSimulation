@@ -1,17 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cmn">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PandemicSimulator</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="simulator">
-        <canvas id="canvas"></canvas>
-    </div>
 
+    <link rel="stylesheet" href="css/bootstrap-5.0.0/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>PandemicSimulator</title>
+</head>
+<body class="bg-secondary">
+    <main class="container">
+        <div class="bg-light p-5 rounded-lg m-3">
+            <h1 class="display-4">传染病传播简单模拟</h1>
+            <p class="lead, fst-italic, fs-6, text-indent-2">本实验仅简单的通过小球碰撞模拟传染病传播，忽略传染病传播模型的众多复杂参数，使用定值概率代替。实验结果仅为简单模拟的可视化显示，不具严谨的数学推导。</p>
+            <hr class="my-4">
+            
+            <div>
+                <h1>相关模拟设定介绍</h1>
+                <hr class="my-3">
+                <h3>传染病传播</h3>
+                <p class="text-indent-2">本仿真假设小球（传染病宿主）共有三种状态：</p>
+                <ul>
+                    <li><p class='text-primary d-inline'>正常状态</p>：未感染传染病，也不会传播感染病。</li>
+                    <li><p class='text-danger d-inline'>感染状态</p>：已感染传染病，且会在与其他小球碰撞时传播感染病。</li>
+                    <li><p class='text-secondary d-inline'>痊愈状态</p>：已感染传染病在一定迭代后转变，此时不会传播感染病。</li>
+                </ul>
+                <p class="text-black-50">提示：迭代速度与计算机性能有关，一般为40FPS。</p>
+                
+                <div id="simulator-intro">
+                    <canvas id="canvas"><p>您的浏览器不支持canvas功能！</p></canvas>
+                    <h3 class="mt-3">图表显示</h3>
+                    <p class="text-indent-2">此处采用折线堆叠图显示人群状态随迭代次数增加的变化过程。</p>
+                    <canvas id="chart"><p>您的浏览器不支持canvas功能！</p></canvas>
+                </div>
+            </div>
+            <hr class="my-4">
+
+            <div>
+                <h1>控制传播参数</h1>
+                <p class="text-indent-2">本仿真实验对以下参数进行可视化交互：</p>
+                <ul>
+                    <li>人群总数：仿真实验中的总人数。</li>
+                    <li>人群活动速度：仿真实验中宿主的移动速度。</li>
+                    <li>治愈时间：感染状态宿主维持可感染状态的迭代次数。</li>
+                    <li>感染几率：感染状态宿主接触正常状态宿主后，传播疾病的几率。</li>
+                    <li>迭代次数：仿真实验的总迭代次数。</li>
+                </ul>
+
+                <div id="simulator-para">
+                    <canvas id="canvas"><p>您的浏览器不支持canvas功能！</p></canvas>
+                    <canvas id="chart"><p>您的浏览器不支持canvas功能！</p></canvas>
+
+                    <div id='para' class='mt-2'>
+                        <div class="mb-3">
+                            <label for="countInput" class="form-label">人群总数</label>
+                            <input type="text" class="form-control" id="countInput">
+                        </div>
+                        <div class="mb-3">
+                            <label for="velocityInput" class="form-label">人群活动速度</label>
+                            <input type="text" class="form-control" id="velocityInput">
+                        </div>
+                        <div class="mb-3">
+                            <label for="healInput" class="form-label">治愈时间</label>
+                            <input type="text" class="form-control" id="healInput">
+                        </div>
+                        <div class="mb-3">
+                            <label for="infectedInput" class="form-label">感染几率</label>
+                            <input type="text" class="form-control" id="infectedInput">
+                        </div>
+                        <div class="mb-3">
+                            <label for="iterationInput" class="form-label">迭代次数</label>
+                            <input type="text" class="form-control" id="iterationInput">
+                        </div>
+                        <button type="submit" class="btn btn-primary">开始</button>
+                    </div>
+                </div>
+            </div>
+        </div>     
+    </main>
+
+    <script src="js/bootstrap-5.0.0/bootstrap.bundle.min.js"></script>
+
+    <script src="js/popper-v2/popper.min.js"></script>
+    <script src="js/bootstrap-5.0.0/bootstrap.min.js"></script>
+    <script src="js/bootstrap-slider/bootstrap-slider.min.js"></script>
+
+    <script src="js/chartjs/chart.min.js"></script>
+
+    <script src="js/moveable_ball.js"></script>
+    <script src="js/simulator.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
